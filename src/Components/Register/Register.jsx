@@ -20,11 +20,11 @@ const Register = () => {
      const  [password,setpassword]                =useState('')
      const  [passwordError,setpasswordError]      =useState('')
      const  [show,setShow]                        =useState(false)
-     const navigate                               =useNavigate()
+     const navigate                               =useNavigate('/')
  
  
 //  ================== firebase variables part start
-const auth = getAuth();
+const auth = getAuth()
 const [loading,setloading]    = useState(false)
  
  
@@ -69,7 +69,7 @@ const [loading,setloading]    = useState(false)
                 .then((userCredential) => {
                     updateProfile(auth.currentUser, {
                         displayName: userName,
-                         photoURL: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png"
+                         photoURL: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png",
                       })
                     setloading(false)
                     toast.success('success in SignUp', {
@@ -85,12 +85,13 @@ const [loading,setloading]    = useState(false)
                         });
                     //    navigate('/')
                     sendEmailVerification(auth.currentUser)
+                    console.log(userCredential)
                 })
                 .catch((error) => {
                     const errorCode = error.code;
                     const errorMessage = error.message;
                setloading(false)
-               if(errorCode=='auth/weak-password'){
+               if(errorCode==='auth/weak-password'){
                 toast.warn('Your Password is weak', {
                     position: "top-center",
                     autoClose: 5000,
@@ -103,7 +104,7 @@ const [loading,setloading]    = useState(false)
                     transition: Zoom,
                     });
                }
-               if(errorCode=='auth/email-already-in-use'){
+               if(errorCode==='auth/email-already-in-use'){
                 toast.warn('email already in use', {
                     position: "top-center",
                     autoClose: 5000,
